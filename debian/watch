@@ -1,0 +1,3 @@
+version=3
+    https://github.com/pigfoot/ssldump2/tags \
+            .*/tarball/(\d+(?:\.\d+)+)

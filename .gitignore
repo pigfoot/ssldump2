@@ -1,0 +1,25 @@
+_CPack_Packages
+*.a
+*.dylib
+*.o
+*.so
+CMakeFiles
+CMakeCache.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
+./build
+/build
+# Ignore Makefile in the stupid way for `tar --exclude-vcs-ignores`
+/Makefile
+./Makefile
+src/Makefile
+RPM
+*.src.rpm
+*.i386.rpm
+*.x86_64.rpm
+cmake_install.cmake
+config.mk
+config.guess
+config.sub
+VERSION
+

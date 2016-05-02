@@ -1,0 +1,22 @@
+Source: ssldump2
+Section: net
+Priority: optional
+Maintainer: Chen, Chih-Chia <pigfoot@gmail.com>
+Build-Depends: debhelper (>= 8), cmake, libpcap-dev (>= 0.6.2), libssl-dev (>= 0.9.6c)
+Standards-Version: 3.9.6
+Vcs-git: https://github.com/pigfoot/ssldump2.git
+Vcs-browser: https://github.com/pigfoot/ssldump2
+
+Package: ssldump2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: tcpdump
+Description: SSLv3/TLS network protocol analyzer
+ This program will dump the traffic on a network and analyze it for
+ SSLv3/TLS network traffic, typically used to secure TCP connections.
+ When it identifies this traffic, it decodes the results.  When
+ provided with the appropriate keying material, it will also decrypt
+ the connections and display the application data traffic.
+ .
+ ssldump is based on tcpdump, a network monitoring and data acquisition
+ tool.

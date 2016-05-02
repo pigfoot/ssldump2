@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+VERSION  := $(shell dpkg-parsechangelog|grep ^Version|awk '{print $$2}')
+UVERSION := $(shell echo $(VERSION)|sed 's/-[[:digit:]]\+$$//')
+
+DEB_CMAKE_EXTRA_FLAGS := \
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+	-DCMAKE_INSTALL_LIBDIR=lib/$(DEB_HOST_MULTIARCH) \
+	-DCMAKE_INSTALL_SYSCONFDIR=/etc \
+	-DCMAKE_INSTALL_LOCALSTATEDIR=/var \
+	-DENABLE_BUNDLED_LIBYAML=OFF \
+	-DENABLE_DIST=ON \
+	-DWITH_SYSVINIT=ON \
+	-DWITH_SYSTEMD=OFF
+
+DEB_DH_INSTALLINIT_ARGS := --name=ssldump2
+
+include /usr/share/dpkg/buildflags.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/cmake.mk
+
+tarball: clean
+	git describe --long --always > VERSION
+	tar --exclude=.git --exclude=debian 		\
+		--transform='s,^\.,ssldump2_$(UVERSION),S' \
+		-czf ../ssldump2_$(UVERSION).orig.tar.gz .
+
+clean::
+	find -type d -name CMakeFiles -exec rm -fr '{}' +
+	rm -f CMakeCache.txt
+	rm -f CPackConfig.cmake
+	rm -f CPackSourceConfig.cmake
